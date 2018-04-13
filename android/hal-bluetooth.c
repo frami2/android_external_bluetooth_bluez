@@ -252,7 +252,7 @@ static void handle_pin_request(void *buf, uint16_t len, int fd)
 #if ANDROID_VERSION >= PLATFORM_VER(6, 0, 0)
 		bt_hal_cbacks->pin_request_cb(addr, name, ev->class_of_dev, false);
 #else
- 		bt_hal_cbacks->pin_request_cb(addr, name, ev->class_of_dev);
+ 		bt_hal_cbacks->pin_request_cb(addr, name, ev->class_of_dev,0);
 #endif
 }
 

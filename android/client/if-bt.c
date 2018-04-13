@@ -250,14 +250,14 @@ static void pin_request_answer(char *reply)
 }
 
 static void pin_request_cb(bt_bdaddr_t *remote_bd_addr, bt_bdname_t *bd_name,
-								uint32_t cod)
+								uint32_t cod, uint8_t secure)
 {
 	/* Store for command completion */
 	bt_bdaddr_t2str(remote_bd_addr, last_remote_addr);
 	pin_request_addr = *remote_bd_addr;
 
 	haltest_info("%s: remote_bd_addr=%s bd_name=%s cod=%06x\n", __func__,
-					last_remote_addr, bd_name->name, cod);
+					last_remote_addr, bd_name->name, cod, secure);
 	terminal_prompt_for("Enter pin: ", pin_request_answer);
 }
 
@@ -464,7 +464,7 @@ static void enable_p(int argc, const char **argv)
 {
 	RETURN_IF_NULL(if_bluetooth);
 
-	EXEC(if_bluetooth->enable);
+	EXEC(if_bluetooth->enable,0);
 }
 #if ANDROID_VERSION >= PLATFORM_VER(5, 0, 0)
 static void read_energy_info_p(int argc, const char **argv)
